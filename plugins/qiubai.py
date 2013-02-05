@@ -50,11 +50,11 @@ def handle(data, bot):
         return random.choice(r)
     r = urllib2.urlopen('http://feed.feedsky.com/qiushi', timeout=60)
     p = r.read()
-    r = re.findall('&lt;p&gt;([\s]+)([^\t]+)&lt;br/&gt;', p)
+    r = re.findall('&lt;p&gt;[\s]+([\S]+?)&lt;br/&gt;', p)
     if r:
         for l in r:
-            kv.rpush(key, l[1])
-        return random.choice(r)[1]
+            kv.rpush(key, l)
+        return random.choice(r)
     else:
         raise Exception
 
